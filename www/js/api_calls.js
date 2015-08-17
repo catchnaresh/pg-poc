@@ -4,7 +4,7 @@
  */
 // Constants ------------------------------------------------
 
-var env = 'prod';
+var env = 'dev';
 //var env = 'local';
 //var env = 'prod';
 if(env == 'prod'){
@@ -12,6 +12,7 @@ if(env == 'prod'){
     window.api_url = 'https://poc-eastpoint.herokuapp.com/api/v1/'
     window.app_client_id = 'b32d51cc5d7613b28398e0863681c1b4992375e95a0892da5935aebabc097f61'
     window.app_client_secret = 'c8ae1d60f532584dac3dd97afb27808acf9ffd59d2b586645e5afeb27294c640'
+    window.oauth_pub_key = 'jvZsg8Y5cErqVpa4fCPwMvfsx7Q' // replace this once on private repo
     // comment below for apk generation
    // var device = {model: 'XT1033', platform: 'Android',version: '5.0.2',uuid: 'dd46057341bf77df',cordova: '3.7.0'}
 }else if(env=='dev'){
@@ -21,6 +22,7 @@ if(env == 'prod'){
     window.app_client_secret = '28e973a296232a0a4ba569c0a9972c21a1f0da4771cc272b53f461515d2ec547'
     // for prod same will get from plugin
     var device = {model: 'XT1033', platform: 'Android',version: '5.0.2',uuid: 'dd46057341bf77df',cordova: '3.7.0'}
+    window.oauth_pub_key = 'jvZsg8Y5cErqVpa4fCPwMvfsx7Q'
 }
 
 //TODO replace device_token with plugin
@@ -68,6 +70,8 @@ function successDialog(title,msg){
 
 // Get access token
 function getAccessToken() {
+   // localStorage.clear()
+   //  sessionStorage.clear()
     if(typeof(localStorage.getItem('access_token')) == "undefined" || localStorage.getItem('access_token') == null || localStorage.getItem('access_token') == '') {
         $.ajax({
             url: window.oauth_url,

@@ -46,6 +46,9 @@
     <gap:plugin name="org.apache.cordova.splashscreen" />
     <gap:plugin name="org.apache.cordova.vibration" />
 
+    <!-- oAuth io -->
+    <gap:plugin name="com.oauthio.plugins.oauthio" version="0.2.4" />
+
     <icon src="icon.png" />
     <!--<icon gap:platform="android" gap:qualifier="ldpi" src="www/res/icon/android/icon-36-ldpi.png" />-->
     <!--<icon gap:platform="android" gap:qualifier="mdpi" src="www/res/icon/android/icon-48-mdpi.png" />-->

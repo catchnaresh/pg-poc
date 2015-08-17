@@ -92,8 +92,66 @@ function signOutUser(){
     })
 }
 
+function authenticateViaOauth(){
+    $('#btn-oauth-fbsignin').on('click',function(e){
+        e.preventDefault()
+        var provider = $(this).attr('data-provider')
+        console.log(provider)
+        OAuth.popup(provider)
+            .done(function(result) {
+                console.log(result)
+                //use result.access_token in your API request
+                //or use result.get|post|put|del|patch|me methods (see below)
+                result.get('/me')
+                    .done(function (response) {
+                        //this will display "John Doe" in the console
+                        console.log(response);
+                        $.ajax({
+                            url: window.api_url+'oauth/'+provider,
+                            type: 'post',
+                            data: {
+                                'access_token':  localStorage['access_token'],
+                                'oauth_token': result.access_token,
+                                'name': response.name,
+                                'email': response.email,
+                                'expires_in': result.expires_in,
+                                'uid': response.id
+                            },
+                            beforeSend: function () { showAjaxSpinner()  },
+                            success: function (data) {
+                                localStorage.setItem('current_user',JSON.stringify(data.user))
+                                // replace access token with verified
+                                current_user = JSON.parse(localStorage.getItem('current_user'))
+                                console.log(current_user)
+                                localStorage.setItem('auth_token',data.auth_token)
+                                localStorage.setItem('auth_email',data.user.email)
+                                // successDialog('Success',JSON.stringify(data))
+                                hideAjaxSpinner()
+                                window.location.href = 'home.html'
+                            },
+                            error: function(xhr,textStatus,errorThrown ) {
+                                var error_obj = $.parseJSON(xhr.responseText)
+                                console.log(error_obj)
+                                hideAjaxSpinner()
+                                errorDialog('Error',error_obj.errors)
+                            }
+                        })
+                    })
+                    .fail(function (err) {
+                        //handle error with err
+                    });
+            })
+            .fail(function (err) {
+                console.log('error')
+                console.log(err)
+                //handle error with err
+            });
+    })
+
+}
 
 $(document).on('ready',function(){
+
     // signUp ----------------------------------------------
     $('#signup-form #btn-submit-signup').on('click',function(e){
         e.preventDefault()

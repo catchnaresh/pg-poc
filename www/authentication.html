@@ -99,6 +99,7 @@
 
                         <div class="col-sm-12 controls">
                             <a id="btn-submit-signin" href="#" class="btn btn-success">Login  </a>
+                            <a id="btn-oauth-fbsignin" href="#" class="btn btn-primary" data-provider="facebook">Login with Facebook</a>
                         </div>
                     </div>
 
@@ -166,6 +167,13 @@
                             <button id='btn-submit-signup'  type="button" class="btn btn-info"><i class="icon-hand-right"></i> &nbsp Sign Up</button>
                         </div>
                     </div>
+                    <div style="border-top: 1px solid #999; padding-top:20px"  class="form-group">
+
+                        <div class="col-md-offset-3 col-md-9">
+                            <button id="btn-oauth-fbsignup" type="button" class="btn btn-primary" data-provider="facebook"><i class="icon-facebook"></i>   Sign Up with Facebook</button>
+                        </div>
+
+                    </div>
                 </form>
             </div>
         </div>
@@ -180,7 +188,15 @@
 <script type="text/javascript" src="js/bootbox.min.js"></script>
 <script type="text/javascript" src="js/fastclick.js"></script>
 <script type="text/javascript" src="js/spin.min.js"></script>
+<script type="text/javascript" src="js/oauth.min.js"></script>
 <script type="text/javascript" src="js/api_calls.js"></script>
 <script type="text/javascript" src="js/authentication.js"></script>
+
+<script type="text/javascript">
+    var provider = 'facebook';
+    OAuth.initialize('jvZsg8Y5cErqVpa4fCPwMvfsx7Q') //TODO change this or get it from ENV variables
+    authenticateViaOauth()
+</script>
+
 </body>
 </html>
